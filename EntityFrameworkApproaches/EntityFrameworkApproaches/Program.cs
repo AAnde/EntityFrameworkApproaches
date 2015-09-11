@@ -18,7 +18,11 @@ namespace EntityFrameworkApproaches
                 //Esp_GetEmp();
                 //Esp_AddEmp();
                 //Esp_UpdateEmp();
-                Esp_DeleteEmp();
+                //Esp_DeleteEmp();
+                //Tsp_AddEmp();
+                //Tsp_UpdateEmp();
+                //Tsp_GetEmp();
+                Tsp_DeleteEmp();
                 Console.WriteLine("success..!");
             }
             catch (Exception ex)
@@ -44,7 +48,7 @@ namespace EntityFrameworkApproaches
         {
             EmployeeInfo emp = new EmployeeInfo()
             {
-                EmpId=2,
+                EmpId = 2,
                 Name = "ashokkumar",
                 Salary = 20000,
                 MobileNo = "23456789",
@@ -66,6 +70,52 @@ namespace EntityFrameworkApproaches
         static void Esp_DeleteEmp()
         {
             dbFirstOperations.EntSplit_DeleteEmp(1);
+        }
+        #endregion
+        #region TableSplit
+        static void Tsp_AddEmp()
+        {
+            Employee emp = new Employee()
+            {
+                Name = "ashok",
+                Salary = 10000
+            };
+            emp.EmployeeContactInfo = new EmployeeContactInfo()
+            {
+                MobileNo = "23456789",
+                EmailId = "ashok.ande12@gmail.com"
+            };
+            dbFirstOperations.TblSplit_AddEmp(emp);
+        }
+        static void Tsp_UpdateEmp()
+        {
+            Employee emp = new Employee()
+            {
+                Id = 1,
+                Name = "ashokkumar",
+                Salary = 20000
+            };
+            emp.EmployeeContactInfo = new EmployeeContactInfo()
+            {
+                MobileNo = "23456789",
+                EmailId = "ashok.ande122@gmail.com"
+            };
+            dbFirstOperations.TblSplit_UpdateEmp(emp);
+        }
+        static void Tsp_GetEmp()
+        {
+            List<Employee> emps = dbFirstOperations.TblSplit_GetEmp();
+            if (emps.Count > 0)
+            {
+                foreach (var emp in emps)
+                {
+                    Console.WriteLine(emp.Name+":"+emp.EmployeeContactInfo.MobileNo);
+                }
+            }
+        }
+        static void Tsp_DeleteEmp()
+        {
+            dbFirstOperations.TblSplit_DeleteEmp(1);
         }
         #endregion
     }

@@ -26,5 +26,7 @@ namespace DAL.DBFirstApproaches
         }
     
         public virtual DbSet<EmployeeInfo> EmployeeInfoes { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<EmployeeContactInfo> EmployeeContactInfoes { get; set; }
     }
 }

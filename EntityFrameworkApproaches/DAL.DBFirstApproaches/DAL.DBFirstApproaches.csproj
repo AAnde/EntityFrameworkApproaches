@@ -51,6 +51,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBFirstOperations.cs" />
+    <Compile Include="Employee.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeContactInfo.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="EmployeeInfo.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
