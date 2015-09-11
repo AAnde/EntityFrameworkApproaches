@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="TestDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ConditionalEmployee">
+          <Key>
+            <PropertyRef Name="EmpId" />
+          </Key>
+          <Property Name="EmpId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="30" />
+          <Property Name="IsTerminated" Type="bit" />
+        </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="Id" />
@@ -44,6 +52,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="TestDBModelStoreContainer">
+          <EntitySet Name="ConditionalEmployee" EntityType="Self.ConditionalEmployee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeContactInfo" EntityType="Self.EmployeeContactInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeInfo" EntityType="Self.EmployeeInfo" Schema="dbo" store:Type="Tables" />
@@ -74,6 +83,7 @@
             <End Role="Employee" EntitySet="Employees" />
             <End Role="EmployeeContactInfo" EntitySet="EmployeeContactInfoes" />
           </AssociationSet>
+          <EntitySet Name="ConditionalEmployees" EntityType="TestDBModel.ConditionalEmployee" />
         </EntityContainer>
         <EntityType Name="Employee">
           <Key>
@@ -105,6 +115,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ConditionalEmployee">
+          <Key>
+            <PropertyRef Name="EmpId" />
+          </Key>
+          <Property Name="EmpId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -140,6 +157,15 @@
                 <ScalarProperty Name="EmailId" ColumnName="EmailId" />
                 <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConditionalEmployees">
+            <EntityTypeMapping TypeName="TestDBModel.ConditionalEmployee">
+              <MappingFragment StoreEntitySet="ConditionalEmployee">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+                <Condition ColumnName="IsTerminated" Value="false" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -9,6 +9,7 @@
         <EntityTypeShape EntityType="TestDBModel.Employee" Width="1.5" PointX="3.375" PointY="0.75" />
         <EntityTypeShape EntityType="TestDBModel.EmployeeContactInfo" Width="1.5" PointX="5.5" PointY="0.75" />
         <AssociationConnector Association="TestDBModel.EmployeeEmployeeContactInfo" />
+        <EntityTypeShape EntityType="TestDBModel.ConditionalEmployee" Width="1.5" PointX="0.75" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

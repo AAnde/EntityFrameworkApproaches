@@ -22,7 +22,8 @@ namespace EntityFrameworkApproaches
                 //Tsp_AddEmp();
                 //Tsp_UpdateEmp();
                 //Tsp_GetEmp();
-                Tsp_DeleteEmp();
+                //Tsp_DeleteEmp();
+                CMP_GetEmp();
                 Console.WriteLine("success..!");
             }
             catch (Exception ex)
@@ -116,6 +117,19 @@ namespace EntityFrameworkApproaches
         static void Tsp_DeleteEmp()
         {
             dbFirstOperations.TblSplit_DeleteEmp(1);
+        }
+        #endregion
+        #region ConditionalMapping
+        static void CMP_GetEmp()
+        {
+            List<ConditionalEmployee> emps = dbFirstOperations.CndMap_GetEmp();
+            if (emps.Count > 0)
+            {
+                foreach (var emp in emps)
+                {
+                    Console.WriteLine(emp.Name);
+                }
+            }
         }
         #endregion
     }

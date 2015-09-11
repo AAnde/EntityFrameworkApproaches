@@ -86,5 +86,15 @@ namespace DAL.DBFirstApproaches
             }
         }
         #endregion
+        #region Conditional Mapping
+        public List<ConditionalEmployee> CndMap_GetEmp()
+        {
+            using (var context = new TestDBEntities())
+            {
+                var emps = context.ConditionalEmployees.ToList();
+                return emps;
+            }
+        }
+        #endregion
     }
 }
