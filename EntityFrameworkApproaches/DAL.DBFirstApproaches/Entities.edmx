@@ -31,6 +31,14 @@
           <Property Name="MobileNo" Type="varchar" MaxLength="10" />
           <Property Name="EmailId" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="EmployeeDetails">
+          <Key>
+            <PropertyRef Name="EmpId" />
+          </Key>
+          <Property Name="EmpId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="30" />
+          <Property Name="ManagerId" Type="int" />
+        </EntityType>
         <EntityType Name="EmployeeInfo">
           <Key>
             <PropertyRef Name="EmpId" />
@@ -51,14 +59,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__EmployeeD__Manag__239E4DCF">
+          <End Role="EmployeeDetails" Type="Self.EmployeeDetails" Multiplicity="0..1" />
+          <End Role="EmployeeDetails1" Type="Self.EmployeeDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeDetails">
+              <PropertyRef Name="EmpId" />
+            </Principal>
+            <Dependent Role="EmployeeDetails1">
+              <PropertyRef Name="ManagerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="TestDBModelStoreContainer">
           <EntitySet Name="ConditionalEmployee" EntityType="Self.ConditionalEmployee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeContactInfo" EntityType="Self.EmployeeContactInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeDetails" EntityType="Self.EmployeeDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeInfo" EntityType="Self.EmployeeInfo" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__EmployeeC__EmpId__1273C1CD" Association="Self.FK__EmployeeC__EmpId__1273C1CD">
             <End Role="EmployeeInfo" EntitySet="EmployeeInfo" />
             <End Role="EmployeeContactInfo" EntitySet="EmployeeContactInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeD__Manag__239E4DCF" Association="Self.FK__EmployeeD__Manag__239E4DCF">
+            <End Role="EmployeeDetails" EntitySet="EmployeeDetails" />
+            <End Role="EmployeeDetails1" EntitySet="EmployeeDetails" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -84,6 +109,11 @@
             <End Role="EmployeeContactInfo" EntitySet="EmployeeContactInfoes" />
           </AssociationSet>
           <EntitySet Name="ConditionalEmployees" EntityType="TestDBModel.ConditionalEmployee" />
+          <EntitySet Name="EmployeeDetails" EntityType="TestDBModel.EmployeeDetail" />
+          <AssociationSet Name="FK__EmployeeD__Manag__239E4DCF" Association="TestDBModel.FK__EmployeeD__Manag__239E4DCF">
+            <End Role="EmployeeDetail" EntitySet="EmployeeDetails" />
+            <End Role="EmployeeDetail1" EntitySet="EmployeeDetails" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Employee">
           <Key>
@@ -122,6 +152,28 @@
           <Property Name="EmpId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="EmployeeDetail">
+          <Key>
+            <PropertyRef Name="EmpId" />
+          </Key>
+          <Property Name="EmpId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ManagerId" Type="Int32" />
+          <NavigationProperty Name="Employees" Relationship="TestDBModel.FK__EmployeeD__Manag__239E4DCF" FromRole="EmployeeDetail" ToRole="EmployeeDetail1" />
+          <NavigationProperty Name="Manager" Relationship="TestDBModel.FK__EmployeeD__Manag__239E4DCF" FromRole="EmployeeDetail1" ToRole="EmployeeDetail" />
+        </EntityType>
+        <Association Name="FK__EmployeeD__Manag__239E4DCF">
+          <End Type="TestDBModel.EmployeeDetail" Role="EmployeeDetail" Multiplicity="0..1" />
+          <End Type="TestDBModel.EmployeeDetail" Role="EmployeeDetail1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeDetail">
+              <PropertyRef Name="EmpId" />
+            </Principal>
+            <Dependent Role="EmployeeDetail1">
+              <PropertyRef Name="ManagerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -166,6 +218,15 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="EmpId" ColumnName="EmpId" />
                 <Condition ColumnName="IsTerminated" Value="false" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeDetails">
+            <EntityTypeMapping TypeName="TestDBModel.EmployeeDetail">
+              <MappingFragment StoreEntitySet="EmployeeDetails">
+                <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

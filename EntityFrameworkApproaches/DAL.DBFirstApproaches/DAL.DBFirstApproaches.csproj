@@ -60,6 +60,9 @@
     <Compile Include="EmployeeContactInfo.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="EmployeeDetail.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="EmployeeInfo.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>

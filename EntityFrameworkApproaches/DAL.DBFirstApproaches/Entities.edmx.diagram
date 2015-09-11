@@ -10,6 +10,8 @@
         <EntityTypeShape EntityType="TestDBModel.EmployeeContactInfo" Width="1.5" PointX="5.5" PointY="0.75" />
         <AssociationConnector Association="TestDBModel.EmployeeEmployeeContactInfo" />
         <EntityTypeShape EntityType="TestDBModel.ConditionalEmployee" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="TestDBModel.EmployeeDetail" Width="1.5" PointX="3.375" PointY="3.75" />
+        <AssociationConnector Association="TestDBModel.FK__EmployeeD__Manag__239E4DCF" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

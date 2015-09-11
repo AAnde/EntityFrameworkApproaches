@@ -96,5 +96,15 @@ namespace DAL.DBFirstApproaches
             }
         }
         #endregion
+        #region SelfReferencing Association
+        public List<EmployeeDetail> SlfRef_GetEmp()
+        {
+            using (var context = new TestDBEntities())
+            {
+                var emps = context.EmployeeDetails.ToList();
+                return emps;
+            }
+        }
+        #endregion
     }
 }

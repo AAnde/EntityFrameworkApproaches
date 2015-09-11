@@ -23,7 +23,8 @@ namespace EntityFrameworkApproaches
                 //Tsp_UpdateEmp();
                 //Tsp_GetEmp();
                 //Tsp_DeleteEmp();
-                CMP_GetEmp();
+                //CMP_GetEmp();
+                Slf_GetEmp();
                 Console.WriteLine("success..!");
             }
             catch (Exception ex)
@@ -132,5 +133,22 @@ namespace EntityFrameworkApproaches
             }
         }
         #endregion
+        #region SelfReferencing Association
+        static void Slf_GetEmp()
+        {
+            List<EmployeeDetail> emps = dbFirstOperations.SlfRef_GetEmp();
+            if (emps.Count > 0)
+            {
+                foreach (var emp in emps)
+                {
+                    string Name = string.Empty;
+                    Name += emp.Name + ":";
+                    Name += emp.Manager == null ? "Boss" : emp.Manager.Name;
+                    Console.WriteLine(Name);
+                }
+            }
+        }
+        #endregion
+
     }
 }
