@@ -106,5 +106,79 @@ namespace DAL.DBFirstApproaches
             }
         }
         #endregion
+        #region TPH
+        public List<ContractEmployee> TPH_GetContractEmployees()
+        {
+            using (var context = new TestDBEntities())
+            {
+                var contractEmps = context.TphEmployees.OfType<ContractEmployee>().ToList();
+                return contractEmps;
+            }
+        }
+        public List<PermanentEmployee> TPH_GetPermanentEmployees()
+        {
+            using (var context = new TestDBEntities())
+            {
+                var permanentEmps = context.TphEmployees.OfType<PermanentEmployee>().ToList();
+                return permanentEmps;
+            }
+        }
+        public void TPH_AddContractEmployee(ContractEmployee emp)
+        {
+            using (var context = new TestDBEntities())
+            {
+                context.TphEmployees.Add(emp);
+                context.SaveChanges();
+            }
+        }
+        public void TPH_AddPermanentEmployee(PermanentEmployee emp)
+        {
+            using (var context = new TestDBEntities())
+            {
+                context.TphEmployees.Add(emp);
+                context.SaveChanges();
+            }
+        }
+        public void TPH_UpdateContractEmployee(ContractEmployee emp)
+        {
+            using (var context = new TestDBEntities())
+            {
+                var contractEmp = context.TphEmployees.OfType<ContractEmployee>().FirstOrDefault(x => x.EmpId == emp.EmpId);
+                contractEmp.Name = emp.Name;
+                contractEmp.HourSalary = emp.HourSalary;
+                contractEmp.HoursWorked = emp.HoursWorked;
+                context.SaveChanges();
+            }
+        }
+        public void TPH_UpdatePermanentEmployee(PermanentEmployee emp)
+        {
+            using (var context = new TestDBEntities())
+            {
+                var permanentEmp = context.TphEmployees.OfType<PermanentEmployee>().FirstOrDefault(x=>x.EmpId==emp.EmpId);
+                permanentEmp.Name = emp.Name;
+                permanentEmp.AnnualSalary = emp.AnnualSalary;
+                context.SaveChanges();
+            }
+        }
+        public void TPH_DeleteContractEmployee(int id)
+        {
+            using (var context = new TestDBEntities())
+            {
+                var contractEmp = context.TphEmployees.OfType<ContractEmployee>().FirstOrDefault(x => x.EmpId == id);
+                context.TphEmployees.Remove(contractEmp);
+                context.SaveChanges();
+            }
+
+        }
+        public void TPH_DeletePermanentEmployee(PermanentEmployee emp)
+        {
+            using (var context = new TestDBEntities())
+            {
+                var permanentEmp = context.TphEmployees.OfType<PermanentEmployee>().FirstOrDefault(x => x.EmpId == emp.EmpId);
+                context.TphEmployees.Remove(permanentEmp);
+                context.SaveChanges();
+            }
+        }
+        #endregion
     }
 }

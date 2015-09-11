@@ -12,6 +12,11 @@
         <EntityTypeShape EntityType="TestDBModel.ConditionalEmployee" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="TestDBModel.EmployeeDetail" Width="1.5" PointX="3.375" PointY="3.75" />
         <AssociationConnector Association="TestDBModel.FK__EmployeeD__Manag__239E4DCF" />
+        <EntityTypeShape EntityType="TestDBModel.TphEmployee" Width="1.5" PointX="9.125" PointY="2.875" />
+        <EntityTypeShape EntityType="TestDBModel.PermanentEmployee" Width="1.5" PointX="7.375" PointY="5.875" />
+        <InheritanceConnector EntityType="TestDBModel.PermanentEmployee" />
+        <EntityTypeShape EntityType="TestDBModel.ContractEmployee" Width="1.5" PointX="11" PointY="5.875" />
+        <InheritanceConnector EntityType="TestDBModel.ContractEmployee" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

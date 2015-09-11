@@ -47,6 +47,17 @@
           <Property Name="Name" Type="varchar" MaxLength="20" />
           <Property Name="Salary" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
+        <EntityType Name="TphEmployee">
+          <Key>
+            <PropertyRef Name="EmpId" />
+          </Key>
+          <Property Name="EmpId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" />
+          <Property Name="AnnualSalary" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="HourSalary" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="HoursWorked" Type="int" />
+          <Property Name="EmployeeType" Type="varchar" MaxLength="20" />
+        </EntityType>
         <Association Name="FK__EmployeeC__EmpId__1273C1CD">
           <End Role="EmployeeInfo" Type="Self.EmployeeInfo" Multiplicity="1" />
           <End Role="EmployeeContactInfo" Type="Self.EmployeeContactInfo" Multiplicity="0..1" />
@@ -77,6 +88,7 @@
           <EntitySet Name="EmployeeContactInfo" EntityType="Self.EmployeeContactInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeDetails" EntityType="Self.EmployeeDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeInfo" EntityType="Self.EmployeeInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TphEmployee" EntityType="Self.TphEmployee" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__EmployeeC__EmpId__1273C1CD" Association="Self.FK__EmployeeC__EmpId__1273C1CD">
             <End Role="EmployeeInfo" EntitySet="EmployeeInfo" />
             <End Role="EmployeeContactInfo" EntitySet="EmployeeContactInfo" />
@@ -114,6 +126,7 @@
             <End Role="EmployeeDetail" EntitySet="EmployeeDetails" />
             <End Role="EmployeeDetail1" EntitySet="EmployeeDetails" />
           </AssociationSet>
+          <EntitySet Name="TphEmployees" EntityType="TestDBModel.TphEmployee" />
         </EntityContainer>
         <EntityType Name="Employee">
           <Key>
@@ -174,6 +187,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TphEmployee" Abstract="true">
+          <Key>
+            <PropertyRef Name="EmpId" />
+          </Key>
+          <Property Name="EmpId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PermanentEmployee" BaseType="TestDBModel.TphEmployee" >
+          <Property Name="AnnualSalary" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="ContractEmployee" BaseType="TestDBModel.TphEmployee" >
+          <Property Name="HourSalary" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="HoursWorked" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -227,6 +254,29 @@
                 <ScalarProperty Name="ManagerId" ColumnName="ManagerId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TphEmployees">
+            <EntityTypeMapping TypeName="IsTypeOf(TestDBModel.TphEmployee)">
+              <MappingFragment StoreEntitySet="TphEmployee">
+                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(TestDBModel.PermanentEmployee)">
+              <MappingFragment StoreEntitySet="TphEmployee">
+                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+                <ScalarProperty Name="AnnualSalary" ColumnName="AnnualSalary" />
+                <Condition ColumnName="EmployeeType" Value="Permanent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(TestDBModel.ContractEmployee)">
+              <MappingFragment StoreEntitySet="TphEmployee">
+                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+                <ScalarProperty Name="HoursWorked" ColumnName="HoursWorked" />
+                <ScalarProperty Name="HourSalary" ColumnName="HourSalary" />
+                <Condition ColumnName="EmployeeType" Value="Contract" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

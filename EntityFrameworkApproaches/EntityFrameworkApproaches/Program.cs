@@ -24,7 +24,10 @@ namespace EntityFrameworkApproaches
                 //Tsp_GetEmp();
                 //Tsp_DeleteEmp();
                 //CMP_GetEmp();
-                Slf_GetEmp();
+                //Slf_GetEmp();
+                //TPH_GetContractEmp();
+                //TPH_AddContractEmp();
+                TPH_DeleteContractEmp();
                 Console.WriteLine("success..!");
             }
             catch (Exception ex)
@@ -111,7 +114,7 @@ namespace EntityFrameworkApproaches
             {
                 foreach (var emp in emps)
                 {
-                    Console.WriteLine(emp.Name+":"+emp.EmployeeContactInfo.MobileNo);
+                    Console.WriteLine(emp.Name + ":" + emp.EmployeeContactInfo.MobileNo);
                 }
             }
         }
@@ -147,6 +150,44 @@ namespace EntityFrameworkApproaches
                     Console.WriteLine(Name);
                 }
             }
+        }
+        #endregion
+        #region TPH
+        static void TPH_GetContractEmp()
+        {
+            List<ContractEmployee> contractEmp = dbFirstOperations.TPH_GetContractEmployees();
+            if (contractEmp.Count > 0)
+            {
+                foreach (var emp in contractEmp)
+                {
+                    Console.WriteLine(emp.Name);
+                }
+            }
+        }
+        static void TPH_GetPerEmp()
+        {
+            List<PermanentEmployee> permanentEmp = dbFirstOperations.TPH_GetPermanentEmployees();
+            if (permanentEmp.Count > 0)
+            {
+                foreach (var emp in permanentEmp)
+                {
+                    Console.WriteLine(emp.Name);
+                }
+            }
+        }
+        static void TPH_AddContractEmp()
+        {
+            ContractEmployee emp = new ContractEmployee()
+            {
+                Name = "ash",
+                HourSalary = 300,
+                HoursWorked = 200
+            };
+            dbFirstOperations.TPH_AddContractEmployee(emp);
+        }
+        static void TPH_DeleteContractEmp()
+        {
+            dbFirstOperations.TPH_DeleteContractEmployee(8);
         }
         #endregion
 
