@@ -58,6 +58,28 @@
           <Property Name="HoursWorked" Type="int" />
           <Property Name="EmployeeType" Type="varchar" MaxLength="20" />
         </EntityType>
+        <EntityType Name="TPRContractEmployee">
+          <Key>
+            <PropertyRef Name="EmpId" />
+          </Key>
+          <Property Name="EmpId" Type="int" Nullable="false" />
+          <Property Name="HourPay" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="HoursWorked" Type="int" />
+        </EntityType>
+        <EntityType Name="TPREmployee">
+          <Key>
+            <PropertyRef Name="EmpId" />
+          </Key>
+          <Property Name="EmpId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="TPRPermanentEmployee">
+          <Key>
+            <PropertyRef Name="EmpId" />
+          </Key>
+          <Property Name="EmpId" Type="int" Nullable="false" />
+          <Property Name="AnnualSalary" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
         <Association Name="FK__EmployeeC__EmpId__1273C1CD">
           <End Role="EmployeeInfo" Type="Self.EmployeeInfo" Multiplicity="1" />
           <End Role="EmployeeContactInfo" Type="Self.EmployeeContactInfo" Multiplicity="0..1" />
@@ -82,6 +104,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__TPRContra__EmpId__3D5E1FD2">
+          <End Role="TPREmployee" Type="Self.TPREmployee" Multiplicity="1" />
+          <End Role="TPRContractEmployee" Type="Self.TPRContractEmployee" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TPREmployee">
+              <PropertyRef Name="EmpId" />
+            </Principal>
+            <Dependent Role="TPRContractEmployee">
+              <PropertyRef Name="EmpId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TPRPerman__EmpId__3B75D760">
+          <End Role="TPREmployee" Type="Self.TPREmployee" Multiplicity="1" />
+          <End Role="TPRPermanentEmployee" Type="Self.TPRPermanentEmployee" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TPREmployee">
+              <PropertyRef Name="EmpId" />
+            </Principal>
+            <Dependent Role="TPRPermanentEmployee">
+              <PropertyRef Name="EmpId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="TestDBModelStoreContainer">
           <EntitySet Name="ConditionalEmployee" EntityType="Self.ConditionalEmployee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
@@ -89,6 +135,9 @@
           <EntitySet Name="EmployeeDetails" EntityType="Self.EmployeeDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeInfo" EntityType="Self.EmployeeInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TphEmployee" EntityType="Self.TphEmployee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TPRContractEmployee" EntityType="Self.TPRContractEmployee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TPREmployee" EntityType="Self.TPREmployee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TPRPermanentEmployee" EntityType="Self.TPRPermanentEmployee" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__EmployeeC__EmpId__1273C1CD" Association="Self.FK__EmployeeC__EmpId__1273C1CD">
             <End Role="EmployeeInfo" EntitySet="EmployeeInfo" />
             <End Role="EmployeeContactInfo" EntitySet="EmployeeContactInfo" />
@@ -96,6 +145,14 @@
           <AssociationSet Name="FK__EmployeeD__Manag__239E4DCF" Association="Self.FK__EmployeeD__Manag__239E4DCF">
             <End Role="EmployeeDetails" EntitySet="EmployeeDetails" />
             <End Role="EmployeeDetails1" EntitySet="EmployeeDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TPRContra__EmpId__3D5E1FD2" Association="Self.FK__TPRContra__EmpId__3D5E1FD2">
+            <End Role="TPREmployee" EntitySet="TPREmployee" />
+            <End Role="TPRContractEmployee" EntitySet="TPRContractEmployee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TPRPerman__EmpId__3B75D760" Association="Self.FK__TPRPerman__EmpId__3B75D760">
+            <End Role="TPREmployee" EntitySet="TPREmployee" />
+            <End Role="TPRPermanentEmployee" EntitySet="TPRPermanentEmployee" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -127,6 +184,7 @@
             <End Role="EmployeeDetail1" EntitySet="EmployeeDetails" />
           </AssociationSet>
           <EntitySet Name="TphEmployees" EntityType="TestDBModel.TphEmployee" />
+          <EntitySet Name="TPREmployees" EntityType="TestDBModel.TPREmployee" />
         </EntityContainer>
         <EntityType Name="Employee">
           <Key>
@@ -200,6 +258,20 @@
         <EntityType Name="ContractEmployee" BaseType="TestDBModel.TphEmployee" >
           <Property Name="HourSalary" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="HoursWorked" Type="Int32" />
+        </EntityType>
+        <EntityType Name="TPREmployee">
+          <Key>
+            <PropertyRef Name="EmpId" />
+          </Key>
+          <Property Name="EmpId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TPRContractEmployee" BaseType="TestDBModel.TPREmployee">
+          <Property Name="HourPay" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="HoursWorked" Type="Int32" />
+        </EntityType>
+        <EntityType Name="TPRPermanentEmployee" BaseType="TestDBModel.TPREmployee">
+          <Property Name="AnnualSalary" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -277,6 +349,27 @@
                 <ScalarProperty Name="HoursWorked" ColumnName="HoursWorked" />
                 <ScalarProperty Name="HourSalary" ColumnName="HourSalary" />
                 <Condition ColumnName="EmployeeType" Value="Contract" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TPREmployees">
+            <EntityTypeMapping TypeName="IsTypeOf(TestDBModel.TPREmployee)">
+              <MappingFragment StoreEntitySet="TPREmployee">
+                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(TestDBModel.TPRContractEmployee)">
+              <MappingFragment StoreEntitySet="TPRContractEmployee">
+                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+                <ScalarProperty Name="HourPay" ColumnName="HourPay" />
+                <ScalarProperty Name="HoursWorked" ColumnName="HoursWorked" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(TestDBModel.TPRPermanentEmployee)">
+              <MappingFragment StoreEntitySet="TPRPermanentEmployee">
+                <ScalarProperty Name="EmpId" ColumnName="EmpId" />
+                <ScalarProperty Name="AnnualSalary" ColumnName="AnnualSalary" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

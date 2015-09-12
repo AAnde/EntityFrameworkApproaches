@@ -17,6 +17,11 @@
         <InheritanceConnector EntityType="TestDBModel.PermanentEmployee" />
         <EntityTypeShape EntityType="TestDBModel.ContractEmployee" Width="1.5" PointX="11" PointY="5.875" />
         <InheritanceConnector EntityType="TestDBModel.ContractEmployee" />
+        <EntityTypeShape EntityType="TestDBModel.TPREmployee" Width="1.5" PointX="2.125" PointY="6.875" />
+        <EntityTypeShape EntityType="TestDBModel.TPRContractEmployee" Width="1.5" PointX="0.5" PointY="9.5" />
+        <EntityTypeShape EntityType="TestDBModel.TPRPermanentEmployee" Width="1.5" PointX="3.5" PointY="9.5" />
+        <InheritanceConnector EntityType="TestDBModel.TPRContractEmployee" />
+        <InheritanceConnector EntityType="TestDBModel.TPRPermanentEmployee" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -27,7 +27,10 @@ namespace EntityFrameworkApproaches
                 //Slf_GetEmp();
                 //TPH_GetContractEmp();
                 //TPH_AddContractEmp();
-                TPH_DeleteContractEmp();
+                //TPH_DeleteContractEmp();
+                //TPR_GetContractEmp();
+                //TPR_GetPerEmp();
+                TPR_AddContractEmp();
                 Console.WriteLine("success..!");
             }
             catch (Exception ex)
@@ -190,6 +193,48 @@ namespace EntityFrameworkApproaches
             dbFirstOperations.TPH_DeleteContractEmployee(8);
         }
         #endregion
+        #region TPR
+        static void TPR_GetContractEmp()
+        {
+            List<TPRContractEmployee> contractEmp = dbFirstOperations.TPR_GetContractEmployees();
+            if (contractEmp.Count > 0)
+            {
+                foreach (var emp in contractEmp)
+                {
+                    Console.WriteLine(emp.Name);
+                }
+            }
+        }
+        static void TPR_GetPerEmp()
+        {
+            List<TPRPermanentEmployee> permanentEmp = dbFirstOperations.TPR_GetPermanentEmployees();
+            if (permanentEmp.Count > 0)
+            {
+                foreach (var emp in permanentEmp)
+                {
+                    Console.WriteLine(emp.Name);
+                }
+            }
+        }
+        static void TPR_AddContractEmp()
+        {
+            //TPREmployee emp = new TPREmployee
+            //{
+            //    Name = "Hari"
+               
+            //};
+           
+            //dbFirstOperations.TPR_AddEmployee(emp);
 
+            TPRContractEmployee emp = new TPRContractEmployee()
+            {
+               
+               EmpId=7,
+                HourPay = 300,
+                HoursWorked = 200
+            };
+            dbFirstOperations.TPR_AddContractEmployee(emp);
+        }
+        #endregion
     }
 }

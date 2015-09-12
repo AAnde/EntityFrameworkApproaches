@@ -180,5 +180,39 @@ namespace DAL.DBFirstApproaches
             }
         }
         #endregion
+        #region TPR
+        public List<TPRContractEmployee> TPR_GetContractEmployees()
+        {
+            using (var context = new TestDBEntities())
+            {
+                var contractEmps = context.TPREmployees.OfType<TPRContractEmployee>().ToList();
+                return contractEmps;
+            }
+        }
+        public List<TPRPermanentEmployee> TPR_GetPermanentEmployees()
+        {
+            using (var context = new TestDBEntities())
+            {
+                var permanentEmps = context.TPREmployees.OfType<TPRPermanentEmployee>().ToList();
+                return permanentEmps;
+            }
+        }
+        public void TPR_AddContractEmployee(TPRContractEmployee emp)
+        {
+            using (var context = new TestDBEntities())
+            {
+                context.TPREmployees.Add(emp);
+                context.SaveChanges();
+            }
+        }
+        public void TPR_AddEmployee(TPREmployee emp)
+        {
+            using (var context = new TestDBEntities())
+            {
+                context.TPREmployees.Add(emp);
+                context.SaveChanges();
+            }
+        }
+        #endregion
     }
 }
