@@ -13,6 +13,13 @@
           <Property Name="Name" Type="varchar" MaxLength="30" />
           <Property Name="IsTerminated" Type="bit" />
         </EntityType>
+        <EntityType Name="Courses">
+          <Key>
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Name="CourseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CourseName" Type="varchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="Id" />
@@ -46,6 +53,21 @@
           <Property Name="EmpId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="20" />
           <Property Name="Salary" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="StudentCourses">
+          <Key>
+            <PropertyRef Name="StudentId" />
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Name="StudentId" Type="int" Nullable="false" />
+          <Property Name="CourseId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="StudentId" />
+          </Key>
+          <Property Name="StudentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentName" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="TphEmployee">
           <Key>
@@ -104,6 +126,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__StudentCo__Cours__49C3F6B7">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+          <End Role="StudentCourses" Type="Self.StudentCourses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="CourseId" />
+            </Principal>
+            <Dependent Role="StudentCourses">
+              <PropertyRef Name="CourseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StudentCo__Stude__48CFD27E">
+          <End Role="Students" Type="Self.Students" Multiplicity="1" />
+          <End Role="StudentCourses" Type="Self.StudentCourses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="StudentId" />
+            </Principal>
+            <Dependent Role="StudentCourses">
+              <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__TPRContra__EmpId__3D5E1FD2">
           <End Role="TPREmployee" Type="Self.TPREmployee" Multiplicity="1" />
           <End Role="TPRContractEmployee" Type="Self.TPRContractEmployee" Multiplicity="0..1" />
@@ -130,10 +176,13 @@
         </Association>
         <EntityContainer Name="TestDBModelStoreContainer">
           <EntitySet Name="ConditionalEmployee" EntityType="Self.ConditionalEmployee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Courses" EntityType="Self.Courses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeContactInfo" EntityType="Self.EmployeeContactInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeDetails" EntityType="Self.EmployeeDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeInfo" EntityType="Self.EmployeeInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentCourses" EntityType="Self.StudentCourses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TphEmployee" EntityType="Self.TphEmployee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TPRContractEmployee" EntityType="Self.TPRContractEmployee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TPREmployee" EntityType="Self.TPREmployee" Schema="dbo" store:Type="Tables" />
@@ -145,6 +194,14 @@
           <AssociationSet Name="FK__EmployeeD__Manag__239E4DCF" Association="Self.FK__EmployeeD__Manag__239E4DCF">
             <End Role="EmployeeDetails" EntitySet="EmployeeDetails" />
             <End Role="EmployeeDetails1" EntitySet="EmployeeDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentCo__Cours__49C3F6B7" Association="Self.FK__StudentCo__Cours__49C3F6B7">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="StudentCourses" EntitySet="StudentCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StudentCo__Stude__48CFD27E" Association="Self.FK__StudentCo__Stude__48CFD27E">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="StudentCourses" EntitySet="StudentCourses" />
           </AssociationSet>
           <AssociationSet Name="FK__TPRContra__EmpId__3D5E1FD2" Association="Self.FK__TPRContra__EmpId__3D5E1FD2">
             <End Role="TPREmployee" EntitySet="TPREmployee" />
@@ -185,6 +242,12 @@
           </AssociationSet>
           <EntitySet Name="TphEmployees" EntityType="TestDBModel.TphEmployee" />
           <EntitySet Name="TPREmployees" EntityType="TestDBModel.TPREmployee" />
+          <EntitySet Name="Courses" EntityType="TestDBModel.Course" />
+          <EntitySet Name="Students" EntityType="TestDBModel.Student" />
+          <AssociationSet Name="StudentCourses" Association="TestDBModel.StudentCourses">
+            <End Role="Cours" EntitySet="Courses" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Employee">
           <Key>
@@ -273,6 +336,26 @@
         <EntityType Name="TPRPermanentEmployee" BaseType="TestDBModel.TPREmployee">
           <Property Name="AnnualSalary" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseId" />
+          </Key>
+          <Property Name="CourseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Students" Relationship="TestDBModel.StudentCourses" FromRole="Cours" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="StudentId" />
+          </Key>
+          <Property Name="StudentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Courses" Relationship="TestDBModel.StudentCourses" FromRole="Student" ToRole="Cours" />
+        </EntityType>
+        <Association Name="StudentCourses">
+          <End Type="TestDBModel.Course" Role="Cours" Multiplicity="*" />
+          <End Type="TestDBModel.Student" Role="Student" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -373,6 +456,30 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="TestDBModel.Course">
+              <MappingFragment StoreEntitySet="Courses">
+                <ScalarProperty Name="CourseName" ColumnName="CourseName" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="TestDBModel.Student">
+              <MappingFragment StoreEntitySet="Students">
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="StudentCourses" TypeName="TestDBModel.StudentCourses" StoreEntitySet="StudentCourses">
+            <EndProperty Name="Student">
+              <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+            </EndProperty>
+            <EndProperty Name="Cours">
+              <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

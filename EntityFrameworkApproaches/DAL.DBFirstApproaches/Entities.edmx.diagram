@@ -22,6 +22,9 @@
         <EntityTypeShape EntityType="TestDBModel.TPRPermanentEmployee" Width="1.5" PointX="3.5" PointY="9.5" />
         <InheritanceConnector EntityType="TestDBModel.TPRContractEmployee" />
         <InheritanceConnector EntityType="TestDBModel.TPRPermanentEmployee" />
+        <EntityTypeShape EntityType="TestDBModel.Course" Width="1.5" PointX="6.375" PointY="8.875" />
+        <EntityTypeShape EntityType="TestDBModel.Student" Width="1.5" PointX="8.625" PointY="8.875" />
+        <AssociationConnector Association="TestDBModel.StudentCourses" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

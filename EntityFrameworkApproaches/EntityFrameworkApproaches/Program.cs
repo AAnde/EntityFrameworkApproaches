@@ -30,7 +30,11 @@ namespace EntityFrameworkApproaches
                 //TPH_DeleteContractEmp();
                 //TPR_GetContractEmp();
                 //TPR_GetPerEmp();
-                TPR_AddContractEmp();
+                //TPR_AddContractEmp();
+                //MM_AddCourse();
+                //MM_AddStudent();
+                //MM_AddCourseToStudent();
+                MM_GetStudentsForCourse();
                 Console.WriteLine("success..!");
             }
             catch (Exception ex)
@@ -234,6 +238,37 @@ namespace EntityFrameworkApproaches
                 HoursWorked = 200
             };
             dbFirstOperations.TPR_AddContractEmployee(emp);
+        }
+        #endregion
+        #region ManyToMany
+        static void MM_AddCourse()
+        {
+            Course course = new Course
+            {
+                CourseName="Java"
+            };
+            dbFirstOperations.AddCourse(course);
+        }
+        static void MM_AddStudent()
+        {
+            Student student = new Student
+            {
+                StudentName="bhaskar"
+            };
+            dbFirstOperations.AddStudent(student);
+        }
+        static void MM_AddCourseToStudent()
+        {
+            dbFirstOperations.AddCourseToStudent(1,2);
+            
+        }
+        static void MM_GetStudentsForCourse()
+        {
+            Course course = dbFirstOperations.GetStudentsForCourse(1);
+            foreach (Student student in course.Students)
+            {
+                Console.WriteLine(student.StudentName);
+            }
         }
         #endregion
     }

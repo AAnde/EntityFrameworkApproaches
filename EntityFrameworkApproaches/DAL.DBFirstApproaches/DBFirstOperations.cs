@@ -154,7 +154,7 @@ namespace DAL.DBFirstApproaches
         {
             using (var context = new TestDBEntities())
             {
-                var permanentEmp = context.TphEmployees.OfType<PermanentEmployee>().FirstOrDefault(x=>x.EmpId==emp.EmpId);
+                var permanentEmp = context.TphEmployees.OfType<PermanentEmployee>().FirstOrDefault(x => x.EmpId == emp.EmpId);
                 permanentEmp.Name = emp.Name;
                 permanentEmp.AnnualSalary = emp.AnnualSalary;
                 context.SaveChanges();
@@ -211,6 +211,44 @@ namespace DAL.DBFirstApproaches
             {
                 context.TPREmployees.Add(emp);
                 context.SaveChanges();
+            }
+        }
+        #endregion
+        #region ManytoMany
+        public void AddCourse(Course course)
+        {
+            using (var context = new TestDBEntities())
+            {
+                context.Courses.Add(course);
+                context.SaveChanges();
+            }
+
+        }
+        public void AddStudent(Student student)
+        {
+            using (var context = new TestDBEntities())
+            {
+                context.Students.Add(student);
+                context.SaveChanges();
+            }
+        }
+        public void AddCourseToStudent(int courseId,int studentId)
+        {
+            using (var context = new TestDBEntities())
+            {
+                var course = context.Courses.FirstOrDefault(x => x.CourseId == courseId);
+                var student = context.Students.FirstOrDefault(x => x.StudentId == studentId);
+                student.Courses.Add(course);
+                context.SaveChanges();
+            }
+        }
+        public Course GetStudentsForCourse(int courseId)
+        {
+            using (var context = new TestDBEntities())
+            {
+                Course course = context.Courses.Include("Students").FirstOrDefault(x => x.CourseId == courseId);
+                return course;
+
             }
         }
         #endregion

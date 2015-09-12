@@ -32,5 +32,7 @@ namespace DAL.DBFirstApproaches
         public virtual DbSet<EmployeeDetail> EmployeeDetails { get; set; }
         public virtual DbSet<TphEmployee> TphEmployees { get; set; }
         public virtual DbSet<TPREmployee> TPREmployees { get; set; }
+        public virtual DbSet<Course> Courses { get; set; }
+        public virtual DbSet<Student> Students { get; set; }
     }
 }

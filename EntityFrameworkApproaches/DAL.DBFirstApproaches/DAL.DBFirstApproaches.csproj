@@ -56,6 +56,9 @@
     <Compile Include="ContractEmployee.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Course.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBFirstOperations.cs" />
     <Compile Include="Employee.cs">
       <DependentUpon>Entities.tt</DependentUpon>
@@ -88,6 +91,9 @@
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Student.cs">
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="TphEmployee.cs">
       <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
