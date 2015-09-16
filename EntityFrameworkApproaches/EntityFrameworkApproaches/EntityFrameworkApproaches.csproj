@@ -55,10 +55,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DAL.CodeFirsApproaches\DAL.CodeFirsApproaches.csproj">
+      <Project>{43c14661-fc36-42a5-ac88-aa8f7fd8a536}</Project>
+      <Name>DAL.CodeFirsApproaches</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DAL.DBFirstApproaches\DAL.DBFirstApproaches.csproj">
       <Project>{56ee729d-8803-4386-bc8e-59c2f7d81199}</Project>
       <Name>DAL.DBFirstApproaches</Name>

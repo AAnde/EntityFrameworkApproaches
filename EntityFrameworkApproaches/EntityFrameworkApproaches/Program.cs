@@ -4,46 +4,85 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL.DBFirstApproaches;
+using DAL.CodeFirsApproaches;
+using System.Data.Entity;
 
 namespace EntityFrameworkApproaches
 {
     class Program
     {
         static DBFirstOperations dbFirstOperations = new DBFirstOperations();
+        static CodeFirstOperations codeFirstOperations = new CodeFirstOperations();
+        static Program()
+        {
+            Intialize();
+        }
+
+        private static void Intialize()
+        {
+            //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<Context>());
+            //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<TblSplitContext>());
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<TphContext>());
+            //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<TptContext>());
+            //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<CndContext>());
+            
+        }
         #region Main
         static void Main(string[] args)
         {
+            //#region DB First
+            //try
+            //{
+            //    //Esp_GetEmp();
+            //    //Esp_AddEmp();
+            //    //Esp_UpdateEmp();
+            //    //Esp_DeleteEmp();
+            //    //Tsp_AddEmp();
+            //    //Tsp_UpdateEmp();
+            //    //Tsp_GetEmp();
+            //    //Tsp_DeleteEmp();
+            //    //CMP_GetEmp();
+            //    //Slf_GetEmp();
+            //    //TPH_GetContractEmp();
+            //    //TPH_AddContractEmp();
+            //    //TPH_DeleteContractEmp();
+            //    //TPR_GetContractEmp();
+            //    //TPR_GetPerEmp();
+            //    //TPR_AddContractEmp();
+            //    //MM_AddCourse();
+            //    //MM_AddStudent();
+            //    //MM_AddCourseToStudent();
+            //    MM_GetStudentsForCourse();
+            //    Console.WriteLine("success..!");
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //}
+            //#endregion
+            #region CodeFirst
             try
             {
-                //Esp_GetEmp();
-                //Esp_AddEmp();
-                //Esp_UpdateEmp();
-                //Esp_DeleteEmp();
-                //Tsp_AddEmp();
-                //Tsp_UpdateEmp();
-                //Tsp_GetEmp();
-                //Tsp_DeleteEmp();
-                //CMP_GetEmp();
-                //Slf_GetEmp();
-                //TPH_GetContractEmp();
-                //TPH_AddContractEmp();
-                //TPH_DeleteContractEmp();
-                //TPR_GetContractEmp();
-                //TPR_GetPerEmp();
-                //TPR_AddContractEmp();
-                //MM_AddCourse();
-                //MM_AddStudent();
-                //MM_AddCourseToStudent();
-                MM_GetStudentsForCourse();
+                //GetEmp_Esp();
+                //AddEmp_Esp();
+                //GetEmp_Cnd();
+                //AddEmp_Cnd();
+                //AddEmp_Tsp();
+                //GetEmp_Tph();
+                //AddEmp_Tph();
+                //GetEmp_Tpt();
+                AddEmp_Tpt();
                 Console.WriteLine("success..!");
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
+            #endregion
             Console.ReadLine();
         }
         #endregion
+        #region DBFirst
         #region EntitySplit
         static void Esp_AddEmp()
         {
@@ -87,7 +126,7 @@ namespace EntityFrameworkApproaches
         #region TableSplit
         static void Tsp_AddEmp()
         {
-            Employee emp = new Employee()
+            DAL.DBFirstApproaches.Employee emp = new DAL.DBFirstApproaches.Employee()
             {
                 Name = "ashok",
                 Salary = 10000
@@ -101,7 +140,7 @@ namespace EntityFrameworkApproaches
         }
         static void Tsp_UpdateEmp()
         {
-            Employee emp = new Employee()
+            DAL.DBFirstApproaches.Employee emp = new DAL.DBFirstApproaches.Employee()
             {
                 Id = 1,
                 Name = "ashokkumar",
@@ -116,7 +155,7 @@ namespace EntityFrameworkApproaches
         }
         static void Tsp_GetEmp()
         {
-            List<Employee> emps = dbFirstOperations.TblSplit_GetEmp();
+            List<DAL.DBFirstApproaches.Employee> emps = dbFirstOperations.TblSplit_GetEmp();
             if (emps.Count > 0)
             {
                 foreach (var emp in emps)
@@ -225,15 +264,15 @@ namespace EntityFrameworkApproaches
             //TPREmployee emp = new TPREmployee
             //{
             //    Name = "Hari"
-               
+
             //};
-           
+
             //dbFirstOperations.TPR_AddEmployee(emp);
 
             TPRContractEmployee emp = new TPRContractEmployee()
             {
-               
-               EmpId=7,
+
+                EmpId = 7,
                 HourPay = 300,
                 HoursWorked = 200
             };
@@ -245,7 +284,7 @@ namespace EntityFrameworkApproaches
         {
             Course course = new Course
             {
-                CourseName="Java"
+                CourseName = "Java"
             };
             dbFirstOperations.AddCourse(course);
         }
@@ -253,14 +292,14 @@ namespace EntityFrameworkApproaches
         {
             Student student = new Student
             {
-                StudentName="bhaskar"
+                StudentName = "bhaskar"
             };
             dbFirstOperations.AddStudent(student);
         }
         static void MM_AddCourseToStudent()
         {
-            dbFirstOperations.AddCourseToStudent(1,2);
-            
+            dbFirstOperations.AddCourseToStudent(1, 2);
+
         }
         static void MM_GetStudentsForCourse()
         {
@@ -270,6 +309,130 @@ namespace EntityFrameworkApproaches
                 Console.WriteLine(student.StudentName);
             }
         }
+        #endregion
+        #endregion
+        #region CodeFirst
+        #region EntitySplit
+        static void GetEmp_Esp()
+        {
+            List<DAL.CodeFirsApproaches.Employee> emps = codeFirstOperations.Esp_GetEmp();
+            if (emps.Count > 0)
+            {
+                foreach (var emp in emps)
+                {
+                    Console.WriteLine(emp.Name);
+                }
+            }
+        }
+        static void AddEmp_Esp()
+        {
+            DAL.CodeFirsApproaches.Employee emp = new DAL.CodeFirsApproaches.Employee
+            {
+                Name = "ashok",
+                Salary = 12000,
+                MobileNo = "9550937878",
+                EmailId = "ashok.ande12@gmail.com"
+            };
+            codeFirstOperations.Esp_AddEmp(emp);
+        }
+        #endregion
+        #region TableSplit
+        static void GetEmp_Tsp()
+        {
+            List<DAL.CodeFirsApproaches.EmpInfo> emps = codeFirstOperations.Tsp_GetEmp();
+            if (emps.Count > 0)
+            {
+                foreach (var emp in emps)
+                {
+                    Console.WriteLine(emp.Name+":"+emp.EmpContacInformation.MobileNo);
+                }
+            }
+        }
+        static void AddEmp_Tsp()
+        {
+            DAL.CodeFirsApproaches.EmpInfo emp = new DAL.CodeFirsApproaches.EmpInfo
+            {
+                Name = "ashok",
+                Salary = 12000
+            };
+            emp.EmpContacInformation = new DAL.CodeFirsApproaches.EmpContactInfo {
+                MobileNo = "9550937878",
+                Emailid = "ashok.ande12@gmail.com"
+            };
+            codeFirstOperations.Tsp_AddEmp(emp);
+        }
+        #endregion
+        #region ConditionMapping
+        static void GetEmp_Cnd()
+        {
+            List<DAL.CodeFirsApproaches.CndEmployee> emps = codeFirstOperations.Cnd_GetEmp();
+            if (emps.Count > 0)
+            {
+                foreach (var emp in emps)
+                {
+                    Console.WriteLine(emp.Name);
+                }
+            }
+        }
+        static void AddEmp_Cnd()
+        {
+            DAL.CodeFirsApproaches.CndEmployee emp = new DAL.CodeFirsApproaches.CndEmployee
+            {
+                Name = "ashok",
+                Salary=12000,
+                IsTerminated = true
+            };
+            codeFirstOperations.Cnd_AddEmp(emp);
+        }
+        #endregion
+        #region TPH
+        static void GetEmp_Tph()
+        {
+            List<DAL.CodeFirsApproaches.TphEmployee> emps = codeFirstOperations.Tph_GetEmp();
+            if (emps.Count > 0)
+            {
+                foreach (var emp in emps)
+                {
+                    Console.WriteLine(emp.Name);
+                }
+            }
+        }
+        static void AddEmp_Tph()
+        {
+            DAL.CodeFirsApproaches.TphContractEmployee emp = new DAL.CodeFirsApproaches.TphContractEmployee
+            {
+                Name = "ashok",
+                MobileNo = "9550937878",
+                HourPay = 400,
+                HoursWorked = 200
+            };
+            codeFirstOperations.Tph_AddEmp(emp);
+        }
+        #endregion
+        #region TPT
+        static void GetEmp_Tpt()
+        {
+            List<DAL.CodeFirsApproaches.TptEmployee> emps = codeFirstOperations.Tpt_GetEmp();
+            if (emps.Count > 0)
+            {
+                foreach (var emp in emps)
+                {
+                    Console.WriteLine(emp.Name);
+                }
+            }
+        }
+        static void AddEmp_Tpt()
+        {
+            DAL.CodeFirsApproaches.TptContractEmployee emp = new DAL.CodeFirsApproaches.TptContractEmployee
+            {
+                Name = "ashok",
+                MobileNo="9885955600",
+                HourPay=500,
+                HoursWorked=60
+            };
+            codeFirstOperations.Tpt_AddEmp(emp);
+        }
+        #endregion
         #endregion
     }
 }

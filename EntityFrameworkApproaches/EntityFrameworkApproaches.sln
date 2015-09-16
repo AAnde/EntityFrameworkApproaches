@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{62522C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL.DBFirstApproaches", "DAL.DBFirstApproaches\DAL.DBFirstApproaches.csproj", "{56EE729D-8803-4386-BC8E-59C2F7D81199}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL.CodeFirsApproaches", "DAL.CodeFirsApproaches\DAL.CodeFirsApproaches.csproj", "{43C14661-FC36-42A5-AC88-AA8F7FD8A536}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,11 +34,16 @@ Global
 		{56EE729D-8803-4386-BC8E-59C2F7D81199}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56EE729D-8803-4386-BC8E-59C2F7D81199}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56EE729D-8803-4386-BC8E-59C2F7D81199}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43C14661-FC36-42A5-AC88-AA8F7FD8A536}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43C14661-FC36-42A5-AC88-AA8F7FD8A536}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43C14661-FC36-42A5-AC88-AA8F7FD8A536}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43C14661-FC36-42A5-AC88-AA8F7FD8A536}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{43C14661-FC36-42A5-AC88-AA8F7FD8A536} = {53883545-430A-46A4-B546-D4773FEB91E8}
 		{56EE729D-8803-4386-BC8E-59C2F7D81199} = {69AA7E8A-5703-42BE-B3D7-587AD41A69F3}
 	EndGlobalSection
 EndGlobal
