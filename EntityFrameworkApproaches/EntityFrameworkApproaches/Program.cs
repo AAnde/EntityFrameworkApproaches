@@ -22,9 +22,10 @@ namespace EntityFrameworkApproaches
         {
             //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<Context>());
             //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<TblSplitContext>());
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<TphContext>());
+            //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<TphContext>());
             //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<TptContext>());
             //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<CndContext>());
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<MMContext>());
             
         }
         #region Main
@@ -71,7 +72,9 @@ namespace EntityFrameworkApproaches
                 //GetEmp_Tph();
                 //AddEmp_Tph();
                 //GetEmp_Tpt();
-                AddEmp_Tpt();
+                //AddEmp_Tpt();
+                GetStudetns_MM();
+                //AddStudentCourse_MM();
                 Console.WriteLine("success..!");
             }
             catch (Exception ex)
@@ -282,7 +285,7 @@ namespace EntityFrameworkApproaches
         #region ManyToMany
         static void MM_AddCourse()
         {
-            Course course = new Course
+            DAL.DBFirstApproaches.Course course = new DAL.DBFirstApproaches.Course
             {
                 CourseName = "Java"
             };
@@ -290,7 +293,7 @@ namespace EntityFrameworkApproaches
         }
         static void MM_AddStudent()
         {
-            Student student = new Student
+            DAL.DBFirstApproaches.Student student = new DAL.DBFirstApproaches.Student
             {
                 StudentName = "bhaskar"
             };
@@ -303,8 +306,8 @@ namespace EntityFrameworkApproaches
         }
         static void MM_GetStudentsForCourse()
         {
-            Course course = dbFirstOperations.GetStudentsForCourse(1);
-            foreach (Student student in course.Students)
+            DAL.DBFirstApproaches.Course course = dbFirstOperations.GetStudentsForCourse(1);
+            foreach (DAL.DBFirstApproaches.Student student in course.Students)
             {
                 Console.WriteLine(student.StudentName);
             }
@@ -431,6 +434,27 @@ namespace EntityFrameworkApproaches
                 HoursWorked=60
             };
             codeFirstOperations.Tpt_AddEmp(emp);
+        }
+        #endregion
+        #region ManyToMany
+        static void GetStudetns_MM()
+        {
+            List<DAL.CodeFirsApproaches.Student> students = codeFirstOperations.MM_GetStudents();
+            if (students.Count > 0)
+            {
+                foreach (var student in students)
+                {
+                    Console.WriteLine(student.StudentName);
+                    foreach (var course in student.Courses)
+                    {
+                        Console.WriteLine(course.CourseName);
+                    }
+                }
+            }
+        }
+        static void AddStudentCourse_MM()
+        {
+            codeFirstOperations.MM_AddStudentCourse(1,1);
         }
         #endregion
         #endregion

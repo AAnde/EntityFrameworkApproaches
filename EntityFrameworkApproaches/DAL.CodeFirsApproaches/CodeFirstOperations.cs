@@ -102,5 +102,24 @@ namespace DAL.CodeFirsApproaches
             }
         }
         #endregion
+        #region ManyToMany
+        public List<Student> MM_GetStudents()
+        {
+            using (var context = new MMContext())
+            {
+                var students = context.Students.Include("Courses").ToList();
+                return students;
+            }
+        }
+        public void MM_AddStudentCourse(int stdid,int crsid)
+        {
+            using (var context = new MMContext())
+            {
+                var course = context.Courses.FirstOrDefault(x => x.CourseId == crsid);
+                context.Students.Include("Courses").FirstOrDefault(x => x.StudentId == stdid).Courses.Add(course);
+                context.SaveChanges();
+            }
+        }
+        #endregion
     }
 }

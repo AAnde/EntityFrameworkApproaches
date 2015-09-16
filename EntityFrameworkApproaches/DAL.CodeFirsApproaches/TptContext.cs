@@ -11,5 +11,6 @@ namespace DAL.CodeFirsApproaches
     {
         public TptContext() : base("name=DBEntities") { }
         public DbSet<TptEmployee> TptEmployees { get; set; }
+       
     }
 }
